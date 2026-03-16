@@ -1,0 +1,125 @@
+/**
+ * Jobs filter Jquery - 5907
+ */
+jQuery(document).ready(function($) {
+	// Function to check if the URL contains ?gh_jid=
+	function checkForGhJid() {
+		var urlParams = new URLSearchParams(window.location.search);
+		
+		if (urlParams.has('gh_jid')) {
+			// If ?gh_jid= is found, remove 'jvanish' from #grnhse_app
+			$('#grnhse_app').removeClass('jvanish');
+			// Add 'jvanish' to the other elements as before
+			$('#careers-search-container').addClass('jvanish');
+			$('#job-container').addClass('jvanish');
+		} else {
+			// If ?gh_jid= is not found, add 'jvanish' to #grnhse_app
+			$('#grnhse_app').addClass('jvanish');
+		}
+	}
+
+	// Call the function to check URL on page load
+	checkForGhJid();
+});
+
+/**
+ * Lightbox - 6139
+ */
+jQuery(document).ready(function ($) {
+	const videoElement = $('#lightbox video')[0];
+
+	if ( ! videoElement ) {
+		return;
+	}
+
+	$('#open-lightbox').on('click', function (e) {
+		e.preventDefault();
+		$('#lightbox').removeClass('vanish');
+	});
+
+	$('#close-lightbox, #lightbox').on('click', function (e) {
+		if (e.target.id === 'lightbox' || e.target.id === 'close-lightbox') {
+			$('#lightbox').addClass('vanish');
+			if (videoElement) {
+				videoElement.pause();
+				videoElement.currentTime = 0; // Reset video to the beginning
+			}
+		}
+	});
+});
+
+/**
+ * Pagination filter fix - 6718
+ */
+document.addEventListener("DOMContentLoaded", function () {
+	// Clean up anchor href attributes
+	document.querySelectorAll('.wpc-filter-link').forEach(link => {
+		const url = new URL(link.href);
+		url.searchParams.delete('avia-element-paging');
+		link.href = url.toString();
+	});
+
+	// Clean up data-wpc-link attributes on inputs
+	document.querySelectorAll('input[data-wpc-link]').forEach(input => {
+		const url = new URL(input.dataset.wpcLink);
+		url.searchParams.delete('avia-element-paging');
+		input.dataset.wpcLink = url.toString();
+	});
+});
+
+/**
+ * External link search results
+ */
+jQuery(document).ready(function($) {
+	$('.search-results article.portfolio_entries-press-release').each(function () {
+		const $article = $(this);
+		const externalUrl = $article.data('external');
+		if (externalUrl) {
+		$article.find('h2 a').attr('href', externalUrl).attr('target', '_blank');
+		}
+	});
+});
+
+/**
+ * Job Board Temp - 4873
+ * Unsure if this is actually used.
+ */
+function openModalWindow() {
+	var url = 'https://corcept2023.flywheelsites.com/careers/current-opportunities/';
+	var windowName = 'CareerOpportunities';
+	var windowFeatures = 'width=960,height=1080,scrollbars=yes,resizable=yes,toolbar=no,location=no,menubar=no,status=no';
+
+	window.open(url, windowName, windowFeatures);
+}
+
+/**
+ * HIDDEN - Title tags - 4824
+ */
+jQuery(document).ready(function($) {
+	// Now you can use $ safely inside this function
+	$('img').removeAttr('title');
+});
+
+/**
+ * Search form clear - 3233
+ */
+jQuery(document).ready(function($) {
+	$('#searchsubmit').on('submit', function() {
+		// Clear the search field after the form submission
+		$('#s').val('');
+	});
+});
+
+jQuery(document).ready(function($) {
+	// Function to check the class and apply styles
+	function checkAndApplyStyles() {
+		if ($('.ot-floating-button').hasClass('ot-pc-open')) {
+			$('.onetrust-pc-dark-filter').css('display', 'block');
+		} else {
+			$('.onetrust-pc-dark-filter').css('display', 'none'); // Reset to default if condition is false
+		}
+	}
+
+	// Set interval to check the condition every 500 milliseconds (0.5 seconds)
+	setInterval(checkAndApplyStyles, 500);
+});
